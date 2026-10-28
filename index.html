@@ -3,77 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#09111f" />
-  <meta name="description" content="Генератор красивых локальных TON-адресов. Ищите адрес по шаблону в браузере без серверов и аналитики." />
-  <title>TON Username — локальный генератор адресов</title>
+  <title>Restore — цифровой порядок</title>
+  <meta name="description" content="Простой лендинг Restore." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="noise"></div><canvas id="gradient-ascii" class="gradient-ascii-canvas" aria-hidden="true"></canvas>
-  <header class="topbar shell">
-    <a class="brand" href="#top" aria-label="TON Username — на главную">
-      <span class="brand-mark"><span></span><span></span><span></span></span>
-      <span>TON <b>USERNAME</b></span>
-    </a>
-    <nav class="nav" aria-label="Основная навигация">
-      <a href="#generator">Генератор</a><a href="#how">Как это работает</a><a href="#security">Безопасность</a><a href="#install">Установка</a>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="brand-mark">R</span><span>restore</span></a>
+    <nav>
+      <a href="#about">О проекте</a>
+      <a href="#steps">Как это работает</a>
+      <a class="nav-button" href="#contact">Связаться</a>
     </nav>
-    <a class="github-link" href="https://github.com/alter413/restore" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
   </header>
 
   <main id="top">
-    <section class="hero shell">
+    <section class="hero">
       <div class="hero-copy">
-        <div class="eyebrow"><span class="live-dot"></span> LOCAL-FIRST · TON MAINNET / TESTNET</div>
-        <h1>Адрес,<br><em>который запомнят.</em></h1>
-        <p class="hero-lead">Генерируйте красивые TON-адреса по шаблону прямо в браузере. Сид-фраза остаётся на вашем устройстве — без аккаунта, серверов и трекеров.</p>
-        <div class="hero-actions"><a class="button button-primary" href="#generator">Открыть генератор <span>↓</span></a><a class="text-link" href="#security">Проверить безопасность <span>↗</span></a></div>
-        <div class="hero-proof"><span>◆</span> Открытый исходный код <i></i><span>◉</span> Web Crypto API <i></i><span>↯</span> GPU ready</div>
-      </div>
-      <div class="hero-art" aria-hidden="true"><img class="hero-image" src="assets/hero-orbit.png" alt="" /></div>
-    </section>
-    <section class="ticker" aria-label="Статистика проекта"><div class="ticker-inner shell"><span>01 / 04</span><strong>Кошелёк рождается локально</strong><span>12 слов · 0 отправок</span><span>●</span><strong>Поддержка V4R2 и V5R1</strong><span>CPU + GPU</span></div></section>
-
-    <section id="generator" class="generator-section shell">
-      <div class="section-intro"><div><span class="kicker">01 — GENERATOR</span><h2>Соберите свой<br><em>vanity-адрес.</em></h2></div><p>Выберите кошелёк, задайте паттерн и запустите локальный перебор. Можно искать несколько вариантов сразу — разделяйте их запятой.</p></div>
-      <div class="generator-grid">
-        <form class="panel config-panel" id="generator-form">
-          <div class="panel-head"><span>ПАРАМЕТРЫ ПОИСКА</span><span class="panel-step">01 / 03</span></div>
-          <label class="field-label" for="pattern">Шаблон адреса <span class="required">*</span></label>
-          <div class="pattern-input"><span class="prefix">0x</span><input id="pattern" value="cafe" autocomplete="off" spellcheck="false" aria-describedby="pattern-hint" /><button type="button" id="clear-pattern" aria-label="Очистить шаблон">×</button></div>
-          <div class="hint" id="pattern-hint">Например: <button type="button" class="hint-chip" data-pattern="_FURRY">_FURRY</button><button type="button" class="hint-chip" data-pattern="cafe">cafe</button><button type="button" class="hint-chip" data-pattern="777">777</button></div>
-          <div class="field-row"><div><label class="field-label" for="position">Позиция</label><select id="position"><option value="both">В начале или в конце</option><option value="start">В начале</option><option value="end">В конце</option></select></div><div><label class="field-label" for="network">Сеть</label><select id="network"><option value="mainnet">Mainnet</option><option value="testnet">Testnet</option></select></div></div>
-          <label class="toggle-row"><span><strong>Точный регистр</strong><small>Учитывать прописные и строчные буквы</small></span><input id="case-sensitive" type="checkbox" /><span class="toggle-ui"></span></label>
-          <label class="field-label">Параллельный перебор</label>
-          <div class="engine-options" role="radiogroup" aria-label="Режим перебора"><label class="engine-option active"><input type="radio" name="engine" value="cpu" checked><span class="engine-icon">▦</span><span><strong>CPU</strong><small>Надёжно и везде</small></span><b>✓</b></label><label class="engine-option"><input type="radio" name="engine" value="gpu"><span class="engine-icon">◈</span><span><strong>GPU</strong><small id="gpu-label">Проверяем доступность…</small></span><b>✓</b></label><label class="engine-option"><input type="radio" name="engine" value="both"><span class="engine-icon">◫</span><span><strong>CPU + GPU</strong><small>Максимальная скорость</small></span><b>✓</b></label></div>
-          <div class="wallet-row"><div><label class="field-label" for="wallet">Тип кошелька</label><select id="wallet"><option value="telegram">Telegram Wallet (12 слов)</option><option value="tonkeeper-v4r2">Tonkeeper V4R2</option><option value="tonkeeper-v5r1">Tonkeeper V5R1</option></select></div><div><label class="field-label" for="workchain">Workchain</label><select id="workchain"><option value="0">0 · Masterchain</option><option value="-1">-1 · Basechain</option></select></div></div>
-          <div class="form-actions"><button class="button button-primary button-wide" type="submit" id="start-btn"><span class="play-icon">▶</span> Запустить поиск</button><button class="button button-ghost button-wide hidden" type="button" id="pause-btn"><span>Ⅱ</span> Пауза</button></div>
-          <div class="form-foot"><span class="status-dot"></span><span id="local-status">Готов к локальному поиску</span><span class="shortcut">⌘ ↵</span></div>
-        </form>
-
-        <div class="panel result-panel" id="result-panel">
-          <div class="panel-head"><span>РЕЗУЛЬТАТ</span><span class="result-state" id="result-state">IDLE</span></div>
-          <div class="result-empty" id="result-empty"><div class="empty-orbit"><span>◈</span></div><h3>Здесь появится<br>ваш адрес</h3><p>Настройте шаблон слева<br>и запустите перебор.</p></div>
-          <div class="result-content hidden" id="result-content"><div class="found-label"><span class="live-dot"></span> ADDRESS MATCH <span id="match-time"></span></div><div class="address-display"><span class="address-network" id="address-network">EQ</span><span id="address-value">EQC…</span><button type="button" class="copy-button" id="copy-address" aria-label="Скопировать адрес">⧉</button></div><div class="raw-address"><span>RAW</span><code id="raw-value">0:—</code><button type="button" id="copy-raw">Скопировать</button></div><div class="stats"><div><span>ПОПЫТКИ</span><strong id="attempts-value">0</strong></div><div><span>СКОРОСТЬ</span><strong><span id="speed-value">0</span> <small>addr/s</small></strong></div><div><span>СЕТЬ</span><strong id="network-value">MAINNET</strong></div></div><div class="seed-box"><div class="seed-head"><span>СИД-ФРАЗА · 12 СЛОВ</span><button type="button" id="download-json">↓ JSON backup</button></div><div class="seed-words" id="seed-words"></div><div class="seed-warning">⚠ Сохраните резервную копию до закрытия вкладки. Сид-фразу нельзя восстановить.</div></div><button class="button button-outline button-wide" type="button" id="new-wallet">Сгенерировать новый кошелёк <span>↗</span></button></div>
-          <div class="progress-area hidden" id="progress-area"><div class="progress-label"><span>ПЕРЕБОР КЛЮЧЕЙ</span><strong id="progress-attempts">0 попыток</strong></div><div class="progress-track"><span id="progress-bar"></span></div><div class="progress-meta"><span id="progress-status">Ищем совпадение…</span><span id="progress-speed">0 addr/s</span></div></div>
+        <p class="eyebrow">ПРОСТРАНСТВО ДЛЯ ВАЖНОГО</p>
+        <h1>Верните себе<br><em>ясность.</em></h1>
+        <p class="lead">Restore помогает собрать мысли, задачи и планы в одном спокойном пространстве. Меньше шума — больше движения вперёд.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#contact">Начать сейчас <span>↗</span></a>
+          <a class="text-link" href="#about">Узнать больше <span>↓</span></a>
         </div>
       </div>
-      <p class="generator-note"><span>i</span> Это локальная браузерная генерация для поиска vanity-адреса. Перед переводом средств всегда перепроверьте адрес и сид-фразу в выбранном кошельке.</p>
+      <div class="hero-art" aria-hidden="true">
+        <div class="glow"></div>
+        <div class="orb orb-one"></div><div class="orb orb-two"></div><div class="orb orb-three"></div>
+        <div class="card card-main"><span class="card-label">TODAY</span><strong>Тихий фокус</strong><div class="progress"><i></i></div><small>3 из 5 задач выполнено</small></div>
+        <div class="card card-note"><span>✦</span><strong>Идеи<br>на потом</strong></div>
+        <div class="card card-check">✓</div>
+      </div>
     </section>
 
-    <section id="how" class="how-section shell"><div class="section-intro"><div><span class="kicker">02 — PROCESS</span><h2>Три шага до<br><em>своего адреса.</em></h2></div><p>Никаких регистраций и ожидания подтверждений. Вы контролируете каждый параметр и можете остановить перебор в любой момент.</p></div><div class="steps"><article class="step"><span class="step-number">01</span><div class="step-icon">⌘</div><h3>Задайте паттерн</h3><p>Начало, конец или несколько фрагментов. Включите точный регистр, если это важно.</p><span class="step-arrow">→</span></article><article class="step"><span class="step-number">02</span><div class="step-icon">◌</div><h3>Запустите перебор</h3><p>Браузер создаёт новые ключи локально и показывает скорость в реальном времени.</p><span class="step-arrow">→</span></article><article class="step"><span class="step-number">03</span><div class="step-icon">✦</div><h3>Сохраните backup</h3><p>Скачайте JSON с адресом и сид-фразой до закрытия вкладки. Без этого доступ не восстановить.</p><span class="step-arrow">↗</span></article></div></section><section id="security" class="security-section shell"><div class="security-card"><div class="security-copy"><span class="kicker">03 — SECURITY MODEL</span><h2>Ваши ключи.<br><em>Ваше устройство.</em></h2><p>TON Username не видит сид-фразу и не умеет её восстановить. Генерация проходит в памяти вкладки с помощью Web Crypto API.</p><div class="security-list"><div><span>01</span><strong>Без серверов</strong><small>Запросы к API не нужны для генерации.</small></div><div><span>02</span><strong>Без аналитики</strong><small>Мы не собираем события и не ставим трекеры.</small></div><div><span>03</span><strong>Open source</strong><small>Код можно проверить и запустить самостоятельно.</small></div></div><a class="text-link" href="https://github.com/alter413/restore" target="_blank" rel="noreferrer">Посмотреть код на GitHub <span>↗</span></a></div><div class="security-visual"><div class="shield"><span>✓</span></div><div class="security-pulse pulse-1"></div><div class="security-pulse pulse-2"></div><div class="lock-label"><span class="live-dot"></span> LOCAL ONLY</div></div></div></section>
+    <section class="stats" id="about">
+      <div><strong>01</strong><span>Один экран<br>для главного</span></div>
+      <div><strong>24/7</strong><span>Доступно<br>в любое время</span></div>
+      <div><strong>0</strong><span>Лишнего<br>шума</span></div>
+    </section>
 
-    <section id="install" class="install-section shell"><div class="section-intro"><div><span class="kicker">04 — GET STARTED</span><h2>Запустите<br><em>где удобно.</em></h2></div><p>Откройте веб-версию или скачайте приложение для фонового перебора. В обоих случаях ключи остаются у вас.</p></div><div class="install-grid"><article class="install-card featured"><div class="install-icon">◉</div><span class="install-tag">В БРАУЗЕРЕ</span><h3>Web version</h3><p>Работает на Windows, macOS, Linux и мобильных устройствах.</p><button class="button button-primary" type="button" onclick="document.querySelector('#generator').scrollIntoView({behavior:'smooth'})">Открыть генератор <span>↓</span></button><div class="install-meta"><span>Web Crypto</span><span>WebGPU</span><span>Offline-ready</span></div></article><article class="install-card"><div class="install-icon">▣</div><span class="install-tag">WINDOWS APP</span><h3>Desktop runner</h3><p>Запускайте перебор в фоне и используйте всю мощность GPU.</p><a class="button button-ghost" href="https://github.com/alter413/restore/releases" target="_blank" rel="noreferrer">Скачать для Windows <span>↗</span></a><div class="install-meta"><span>Windows 10+</span><span>GPU</span><span>Background</span></div></article><article class="install-card"><div class="install-icon">?</div><span class="install-tag">DOCS</span><h3>Проверка GPU</h3><p>Пошаговая инструкция: драйверы, доступ, скорость и частые ошибки.</p><a class="button button-ghost" href="https://github.com/alter413/restore#readme" target="_blank" rel="noreferrer">Читать инструкцию <span>↗</span></a><div class="install-meta"><span>FAQ</span><span>Setup</span><span>Troubleshooting</span></div></article></div></section>
+    <section class="steps" id="steps">
+      <div class="section-heading"><p class="eyebrow">ПРОСТОЙ ПОДХОД</p><h2>Сделайте место<br>для <em>своего ритма.</em></h2></div>
+      <div class="step-grid">
+        <article><span class="step-number">01</span><h3>Соберите</h3><p>Запишите всё, что занимает мысли, и освободите внимание.</p></article>
+        <article><span class="step-number">02</span><h3>Расставьте</h3><p>Выберите одно главное действие на сегодня.</p></article>
+        <article><span class="step-number">03</span><h3>Двигайтесь</h3><p>Небольшие шаги складываются в заметный результат.</p></article>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div><p class="eyebrow">ГОТОВЫ НАЧАТЬ?</p><h2>Верните фокус<br>в свою жизнь.</h2></div>
+      <a class="button button-light" href="mailto:hello@restore.example">Написать нам <span>↗</span></a>
+    </section>
   </main>
-  <footer class="footer shell"><a class="brand" href="#top"><span class="brand-mark"><span></span><span></span><span></span></span><span>TON <b>USERNAME</b></span></a><span class="footer-copy">Built for the open network · 2026</span><div class="footer-links"><a href="#security">Security</a><a href="https://github.com/alter413/restore" target="_blank" rel="noreferrer">GitHub ↗</a></div></footer>
-  <div class="toast" id="toast" role="status"></div>
-  <script src="ton-core.js"></script>
-  <script src="app.js"></script>
+
+  <footer><span>© 2026 restore</span><span>Создано с вниманием к простоте</span></footer>
 </body>
 </html>
-
-
-

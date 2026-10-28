@@ -1,18 +1,14 @@
-# TON Username
+# Restore
 
-Static, local-first vanity address generator for TON. The UI is served as plain HTML/CSS/JS and is ready for GitHub Pages.
+Простой статический лендинг, готовый к публикации через Cloudflare Pages.
 
-## Run locally
+## Запуск через Cloudflare Pages
 
-```bash
-python -m http.server 4173
-```
+1. Открой Cloudflare Dashboard → **Workers & Pages** → **Create application** → **Pages**.
+2. Выбери **Connect to Git** и репозиторий `alter413/restore`.
+3. Production branch: `main`.
+4. Framework preset: **None**.
+5. Build command оставь пустым, Build output directory: `/`.
+6. Нажми **Save and Deploy**.
 
-Open `http://localhost:4173`.
-
-## GitHub Pages
-
-The repository includes `.github/workflows/pages.yml`. In GitHub, open **Settings → Pages**, choose **GitHub Actions** as the source, and the workflow will publish the root site on every push to `main`.
-
-The browser app keeps the seed phrase in memory and creates a JSON backup only when the user clicks the download button. Always verify a generated address in the wallet you intend to use before sending funds.
-
+Сайт состоит из обычных HTML и CSS-файлов, поэтому сборка не требуется.
